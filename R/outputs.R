@@ -184,7 +184,21 @@ write_log_file <- function(state, sim, filename) {
   }
 }
 
-#' Write transfer rates file - complete implementation
+#' Write rates file for model simulation
+#' 
+#' Writes transfer rates and flows between compartments to a CSV file.
+#' 
+#' @param state List containing the model state and rates
+#' @param sim List containing simulation parameters
+#' @param filename Character string specifying the output file path
+#' @return Logical indicating whether file was written successfully
+#' @examples
+#' \dontrun{
+#' state <- list(rates = matrix())
+#' sim <- list(parameters = list())
+#' write_rates_file(state, sim, "rates.csv")
+#' }
+#' @export
 write_rates_file <- function(state, sim, filename) {
   # Write header
   write("AALM Transfer Rates", filename)
@@ -209,18 +223,91 @@ write_rates_file <- function(state, sim, filename) {
                     state$TS[const$T_Sum,t]), filename, append=TRUE)
     
     # Bone transfer rates
-    write(sprintf("  Cort surface-->plasma  = %.6f", state$TS[const$R_CsurPlas,t]),
-          filename, append=TRUE)
-    write(sprintf("  Cort surface-->diffuse = %.6f", state$TS[const$R_CsurCdif,t]),
-          filename, append=TRUE)
-    write(sprintf("  Cort diffuse-->volume  = %.6f", state$TS[const$R_CdifCvol,t]),
-          filename, append=TRUE)
+        write(sprintf("  Cort surface-->plasma  = %.6f", state$TS[const$R_CsurPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Cort surface-->diffuse = %.6f", state$TS[const$R_CsurCdif,t]),
+              filename, append=TRUE)
+        write(sprintf("  Cort diffuse-->volume  = %.6f", state$TS[const$R_CdifCvol,t]),
+              filename, append=TRUE)
+        write(sprintf("  Trab surface-->plasma  = %.6f", state$TS[const$R_TsurPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Trab surface-->diffuse = %.6f", state$TS[const$R_TsurTdif,t]),
+              filename, append=TRUE)
+        write(sprintf("  Trab diffuse-->volume  = %.6f", state$TS[const$R_TdifTvol,t]),
+              filename, append=TRUE)
+        
+        # Soft tissue transfer rates
+        write(sprintf("  ST0-->plasma          = %.6f", state$TS[const$R_Sof0Plas,t]),
+              filename, append=TRUE)
+        write(sprintf("  ST1-->plasma          = %.6f", state$TS[const$R_Sof1Plas,t]),
+              filename, append=TRUE)
+        write(sprintf("  ST2-->plasma          = %.6f", state$TS[const$R_Sof2Plas,t]),
+              filename, append=TRUE)
+        
+        # RBC and protein transfer rates
+        write(sprintf("  RBC-->plasma          = %.6f", state$TS[const$R_RBCPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Protein-->plasma      = %.6f", state$TS[const$R_ProtPlas,t]),
+              filename, append=TRUE)
+        
+        # Liver and kidney transfer rates
+        write(sprintf("  Liver1-->plasma       = %.6f", state$TS[const$R_Lvr1Plas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Liver2-->plasma       = %.6f", state$TS[const$R_Lvr2Plas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Kidney1-->plasma      = %.6f", state$TS[const$R_Kdn1Plas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Kidney2-->plasma      = %.6f", state$TS[const$R_Kdn2Plas,t]),
+              filename, append=TRUE)
+        
+        # Lung transfer rates
+        write(sprintf("  LET-->plasma          = %.6f", state$TS[const$R_LETPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  LTB-->plasma          = %.6f", state$TS[const$R_LTBPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Lalv-->plasma         = %.6f", state$TS[const$R_LalvPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  Lint-->plasma         = %.6f", state$TS[const$R_LintPlas,t]),
+              filename, append=TRUE)
+        
+        # GI tract transfer rates
+        write(sprintf("  SI-->plasma           = %.6f", state$TS[const$R_SIPlas,t]),
+              filename, append=TRUE)
+        write(sprintf("  SI-->ULI              = %.6f", state$TS[const$R_SIULI,t]),
+              filename, append=TRUE)
+        write(sprintf("  ULI-->LLI             = %.6f", state$TS[const$R_ULILLI,t]),
+              filename, append=TRUE)
+        
+        # Excretion rates
+        write(sprintf("  Kidney-->urine        = %.6f", state$TS[const$R_KdnUrin,t]),
+              filename, append=TRUE)
+        write(sprintf("  LLI-->feces           = %.6f", state$TS[const$R_LLIFece,t]),
+              filename, append=TRUE)
+        write(sprintf("  Plasma-->sweat        = %.6f", state$TS[const$R_PlasSwet,t]),
+              filename, append=TRUE)
+        write(sprintf("  ST1-->hair            = %.6f", state$TS[const$R_Sof1Hair,t]),
+              filename, append=TRUE)
+    }
     
-    # Add all other rates as in Fortran...
-  }
+    return(TRUE)
 }
 
-#' Add error handling wrapper
+#' Write model outputs with error handling
+#' 
+#' Safely writes AALM model outputs to files with error checking and validation.
+#' 
+#' @param state List containing the model state including compartment amounts and flows
+#' @param sim List containing simulation parameters and settings
+#' @param runname Character string specifying the name of the simulation run
+#' @param outputDir Character string specifying the directory path for output files
+#' @return Logical indicating whether writing was successful
+#' @examples
+#' \dontrun{
+#' state <- list(compartments = list(), flows = list())
+#' sim <- list(parameters = list())
+#' write_outputs_safe(state, sim, "test_run", "outputs")
+#' }
+#' @export
 write_outputs_safe <- function(state, sim, runname, outputDir) {
   tryCatch({
     write_outputs(state, sim, runname, outputDir)

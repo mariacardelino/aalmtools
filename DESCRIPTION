@@ -1,20 +1,41 @@
-Package: AALMR
-Title: All-Ages Lead Model in R
-Version: 1.0.01
-Authors@R: 
-    person("Maria", "Cardelino", "maria.cardelino@emory.edu", role = c("aut", "cre"))
-
-Description: An R implementation of the All-Ages Lead Model (AALM), 
-    ported from the 2023 Fortran version. This model simulates the 
-    pharmacokinetics of lead in the human body across various age groups
-    and exposure scenarios.
+Package: aalmtools
+Title: Age-dependent Adult Lead Model Tools
+Version: 0.1.0
+Authors@R: person("Maria", "Cardelino", email = "maria.cardelino@emory.edu", role = c("aut", "cre"))
+Description: Implementation of the All-Ages Lead Model (AALM) in R.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
-Depends:
-    R (>= 3.5.0)
 Imports:
+    DT,
+    MCMCpack,
+    ggplot2,
+    plotly,
+    shiny,
+    shinyBS,
+    shinydashboard,
+    shinyjs,
     stats,
-    utils
+    utils,
+    coda,
+    rjags
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+RoxygenNote: 7.3.2
+Collate:
+    'AALM_constants.R'
+    'parser.R'
+    'run_AALM.R'
+    'bayes.R'
+    'compartments.R'
+    'outputs.R'
+    'simulation.R'
+    'utils.R'
+    'pack.R'
+
+
+
+

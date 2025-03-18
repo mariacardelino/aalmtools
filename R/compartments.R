@@ -32,12 +32,14 @@
 # 28. Lungs Extrathoracic (LET or Ylung(1))
 # 29. Lungs Tracheo-broncular (LTB or Ylung(2))
 # 30. Lungs Alveolar (Lalv or Ylung(3))
-# 31. Lungs Intertitial (Lint)
+# 31. Lungs Interstitial (Lint)
 
 
 #' Update all compartments for current timestep
-#' @param state Current model state
-#' @param t Current timestep
+#' @param state Current state of the AALM model
+#' @param t Current time point in simulation
+#' @return Updated state object
+#' @export
 update_compartments <- function(state, t) {
   # Update compartments in same order as Fortran model
   state <- update_stomach(state, t)
@@ -77,10 +79,11 @@ update_compartments <- function(state, t) {
 #'  2. Update amount using Actvty()
 #'  3. Store results in state vectors
 
-#' @param state Current model state
-#' @param t Current timestep
-
 #' Update stomach compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_stomach <- function(state, t) {
   const <- AALM_constants
   
@@ -118,6 +121,10 @@ update_stomach <- function(state, t) {
 }
 
 #' Update small intestine compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_small_intestine <- function(state, t) {
   const <- AALM_constants
   
@@ -154,6 +161,10 @@ update_small_intestine <- function(state, t) {
 }
 
 #' Update upper large intestine compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_upper_large_intestine <- function(state, t) {
   const <- AALM_constants
   
@@ -180,6 +191,10 @@ update_upper_large_intestine <- function(state, t) {
 }
 
 #' Update lower large intestine compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_lower_large_intestine <- function(state, t) {
   const <- AALM_constants
   
@@ -206,6 +221,10 @@ update_lower_large_intestine <- function(state, t) {
 }
 
 #' Update plasma compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_plasma <- function(state, t) {
   const <- AALM_constants
   
@@ -251,6 +270,10 @@ update_plasma <- function(state, t) {
 }
 
 #' Update RBC compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_RBC <- function(state, t) {
   const <- AALM_constants
   
@@ -271,6 +294,10 @@ update_RBC <- function(state, t) {
 }
 
 #' Update protein compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_protein <- function(state, t) {
   const <- AALM_constants
   
@@ -291,6 +318,10 @@ update_protein <- function(state, t) {
 }
 
 #' Update cortical bone surface
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_cortical_surface <- function(state, t) {
   const <- AALM_constants
   
@@ -314,6 +345,10 @@ update_cortical_surface <- function(state, t) {
 }
 
 #' Update cortical bone diffuse
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_cortical_diffuse <- function(state, t) {
   const <- AALM_constants
   
@@ -336,6 +371,10 @@ update_cortical_diffuse <- function(state, t) {
 }
 
 #' Update cortical volume compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_cortical_volume <- function(state, t) {
   const <- AALM_constants
   
@@ -352,7 +391,11 @@ update_cortical_volume <- function(state, t) {
   return(state)
 }
 
-#' Update trabecular compartments
+#' Update trabecular compartment: surface
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_trabecular_surface <- function(state, t) {
   const <- AALM_constants
   
@@ -374,6 +417,11 @@ update_trabecular_surface <- function(state, t) {
   return(state)
 }
 
+#' Update trabecular compartment: diffuse
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_trabecular_diffuse <- function(state, t) {
   const <- AALM_constants
   
@@ -394,6 +442,11 @@ update_trabecular_diffuse <- function(state, t) {
   return(state)
 }
 
+#' Update trabecular compartment: volume
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_trabecular_volume <- function(state, t) {
   const <- AALM_constants
   
@@ -410,7 +463,11 @@ update_trabecular_volume <- function(state, t) {
   return(state)
 }
 
-#' Update liver compartments
+#' Update liver compartment 1
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_liver_1 <- function(state, t) {
   const <- AALM_constants
   
@@ -431,8 +488,11 @@ update_liver_1 <- function(state, t) {
   return(state)
 }
 
-
 #' Update liver 2 compartment
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_liver_2 <- function(state, t) {
   const <- AALM_constants
   
@@ -451,7 +511,11 @@ update_liver_2 <- function(state, t) {
   return(state)
 }
 
-#' Update kidney compartments
+#' Update kidney compartment 1
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_kidney_1 <- function(state, t) {
   const <- AALM_constants
   
@@ -474,6 +538,11 @@ update_kidney_1 <- function(state, t) {
   return(state)
 }
 
+#' Update kidney compartment 2
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_kidney_2 <- function(state, t) {
   const <- AALM_constants
   
@@ -492,7 +561,11 @@ update_kidney_2 <- function(state, t) {
   return(state)
 }
 
-#' Update lung compartments
+#' Update lung compartment: ET
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_lung_ET <- function(state, t) {
   const <- AALM_constants
   
@@ -520,8 +593,11 @@ update_lung_ET <- function(state, t) {
   return(state)
 }
 
-
-#' Update lung TB region
+#' Update lung compartment: TB
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_lung_TB <- function(state, t) {
   const <- AALM_constants
   
@@ -549,6 +625,10 @@ update_lung_TB <- function(state, t) {
 }
 
 #' Update lung alveolar region
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_lung_alveolar <- function(state, t) {
   const <- AALM_constants
   
@@ -579,6 +659,10 @@ update_lung_alveolar <- function(state, t) {
 }
 
 #' Update lung interstitial region
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_lung_interstitial <- function(state, t) {
   const <- AALM_constants
   
@@ -601,7 +685,11 @@ update_lung_interstitial <- function(state, t) {
   return(state)
 }
 
-#' Update soft tissue compartments
+#' Update soft tissue compartment 0
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_soft_tissue_0 <- function(state, t) {
   const <- AALM_constants
   
@@ -621,6 +709,11 @@ update_soft_tissue_0 <- function(state, t) {
   return(state)
 }
 
+#' Update soft tissue compartment 1
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_soft_tissue_1 <- function(state, t) {
   const <- AALM_constants
   
@@ -640,6 +733,11 @@ update_soft_tissue_1 <- function(state, t) {
   return(state)
 }
 
+#' Update soft tissue compartment 2
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_soft_tissue_2 <- function(state, t) {
   const <- AALM_constants
   
@@ -656,7 +754,11 @@ update_soft_tissue_2 <- function(state, t) {
   return(state)
 }
 
-#' Update excretion compartments
+#' Update excretion compartment: urine
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_urine <- function(state, t) {
   const <- AALM_constants
   
@@ -673,6 +775,11 @@ update_urine <- function(state, t) {
   return(state)
 }
 
+#' Update excretion compartment: feces
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_feces <- function(state, t) {
   const <- AALM_constants
   
@@ -689,6 +796,11 @@ update_feces <- function(state, t) {
   return(state)
 }
 
+#' Update excretion compartment: sweat
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_sweat <- function(state, t) {
   const <- AALM_constants
   
@@ -705,6 +817,11 @@ update_sweat <- function(state, t) {
   return(state)
 }
 
+#' Update excretion compartment: hair
+#' @param state Current state of the AALM model
+#' @param t Current time point
+#' @return Updated state
+#' @export
 update_hair <- function(state, t) {
   const <- AALM_constants
   

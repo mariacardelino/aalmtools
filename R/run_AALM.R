@@ -3,6 +3,20 @@
 #' @param parFile Path to parameter file
 #' @param outputDir Output directory
 #' @param verbose Print debug info
+#' 
+#' #' @return List containing model results:
+#' \itemize{
+#'   \item Y - Compartment amounts
+#'   \item flows - Flow rates between compartments
+#'   \item TS - Time series results
+#'   \item MB - Mass balance information
+#' }
+#'  
+#' @examples
+#' \dontrun{
+#' results <- run_AALM("input/params.txt", "output", verbose=TRUE)
+#' }
+#' 
 #' @export
 run_AALM <- function(parFile = "LeggettInput.txt", outputDir = NULL, verbose = FALSE) {
   # Initialize global model state
@@ -63,11 +77,11 @@ run_AALM <- function(parFile = "LeggettInput.txt", outputDir = NULL, verbose = F
       
       switch(type,
              "RUN" = { state$sim$runname <- parse_run_name(line) },
-             "SIM" = { state$sim <- parse_sim_data(line, state$sim) },
-             "GRO" = { state$sim <- parse_growth_data(line, state$sim) },
-             "LUN" = { state$sim <- parse_lung_data(line, state$sim) },
-             "PHY" = { state$PC <- parse_phys_data(line, state$PC) },
-             "MED" = { state$sim <- parse_media_data(line, state$sim) }
+             "SIM" = { state$sim <- parse_sim_params(line, state$sim) },
+             "GRO" = { state$sim <- parse_growth_params()(line, state$sim) },
+             "LUN" = { state$sim <- parse_lung_params()(line, state$sim) },
+             "PHY" = { state$PC <- parse_phys_params()(line, state$PC) },
+             "MED" = { state$sim <- parse_media_params()(line, state$sim) }
       )
     }
     

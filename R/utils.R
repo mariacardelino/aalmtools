@@ -1,17 +1,15 @@
-#' Calculate compartment activity using analytical solution
+#' Analytical solution for compartment activity
 #' Direct port of Fortran Actvty function
-#' @param Y Current amount in compartment
-#' @param P Total input rate
-#' @param X Transfer coefficient (output rate)
+#' @param Y Current amount
+#' @param P Input rate
+#' @param X Transfer coefficient
 #' @param D Time step
-#' @return Updated amount in compartment
 #' @export
 Actvty <- function(Y, P, X, D) {
-  if(X <= 0) {
-    # No removal - accumulation only
+  if(X == 0) {
     return(Y + P * D)
   } else {
-    # Analytical solution for first-order kinetics
-    return((P/X) + (Y - P/X) * exp(-X * D))
+    return((Y - P/X) * exp(-X * D) + P/X)
   }
 }
+

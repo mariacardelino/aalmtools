@@ -17,7 +17,20 @@ initialize_model <- function(sim) {
   return(state)
 }
 
-#' Main simulation function
+#' Run the AALM simulation
+#' 
+#' @description
+#' Executes the main AALM simulation with the provided parameters and initial state.
+#' 
+#' @param state List containing the current model state including compartment amounts
+#' @param sim List containing simulation parameters, settings and time points
+#' @return List containing updated model state and simulation results
+#' @examples
+#' \dontrun{
+#' state <- initialize_state()
+#' sim <- list(timesteps = 100, dt = 0.1)
+#' results <- run_simulation(state, sim)
+#' }
 #' @export
 run_simulation <- function(state, sim) {
   # Main time stepping loop

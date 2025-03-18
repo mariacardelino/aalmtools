@@ -1,6 +1,6 @@
 # AALMR: All-Ages Lead Model in R
 
-This is an R implementation of the All-Ages Lead Model (AALM), ported from the 2023 Fortran version. The AALM is a physiologically-based pharmacokinetic model that simulates the dynamics of lead in the human body across the lifespan.
+This is an R implementation of the All-Ages Lead Model (AALM), ported from the 2023 Fortran version at https://github.com/USEPA/AALM/tree/main/AALMv3-0_PublicRelease. The AALM is a physiologically-based pharmacokinetic model that simulates the dynamics of lead in the human body across the lifespan.
 
 ## Installation
 
@@ -24,30 +24,47 @@ If you encounter issues with system dependencies, you can use the `remotes` pack
 
 ```r
 # install.packages("remotes")
-remotes::install_github("username/aalmtools")
+remotes::install_github("mariacardelino/aalmtools")
 ```
 
 ## Usage
 
-To run the model, you can use the following code:
-
+Basic usage:
 ```r
 library(aalmtools)
 
-# Load example data
-data <- read.csv("example_data.csv")
+# Run simulation
+results <- run_AALM(
+  parFile = "path/to/input.txt",
+  outputDir = "results",
+  verbose = TRUE
+)
 
-# Run the model
-results <- run_aalm(data)
-
-# View the results
-print(results)
+# Access results
+blood_pb <- results$TS[results$const$Blood_conc,]
+plot(blood_pb, type='l', xlab='Days', ylab='Blood Pb (μg/dL)')
 ```
 
+## Model Structure
+- 31 compartments representing organs and tissues
+- Age-dependent physiological parameters
+- Multiple exposure pathways (inhalation, ingestion)
+- Detailed mass balance tracking
+- Source-specific biokinetics
+
+## Documentation
+For detailed documentation:
+```r
+?run_AALM
+browseVignettes("aalmtools")
+```
+
+## Contact
+For bugs and feature requests, please use the [issue tracker](https://github.com/mariacardelino/aalmtools/issues).
 
 ## Contributing
 
-If you would like to contribute to the development of AALMR, please follow these steps:
+If you would like to contribute to the R-based AALMR, please follow these steps:
 
 1. Fork the repository on GitHub.
 2. Create a new branch with a descriptive name.
@@ -57,4 +74,4 @@ If you would like to contribute to the development of AALMR, please follow these
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is not yet licensed.

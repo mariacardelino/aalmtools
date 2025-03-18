@@ -1,0 +1,106 @@
+/* Dashboard styling */
+.skin-blue .main-header .logo {
+    background-color: #222d32;
+    font-weight: bold;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #222d32;
+}
+
+/* Box styling */
+.box {
+    border-top: 3px solid #3c8dbc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
+}
+
+.box.box-primary {
+    border-top-color: #3c8dbc;
+}
+
+.box.box-info {
+    border-top-color: #00c0ef;
+}
+
+.box.box-warning {
+    border-top-color: #f39c12;
+}
+
+/* Input styling */
+.form-control {
+    border-radius: 4px;
+    border: 1px solid #d2d6de;
+}
+
+.form-control:focus {
+    border-color: #3c8dbc;
+    box-shadow: none;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #3c8dbc;
+    border-color: #367fa9;
+}
+
+.btn-primary:hover {
+    background-color: #367fa9;
+}
+
+/* Plot styling */
+.plotly {
+    margin-top: 15px;
+}
+
+/* Table styling */
+.dataTables_wrapper {
+    padding: 15px;
+}
+
+.dataTable thead th {
+    background-color: #f4f4f4;
+}
+
+/* Help text styling */
+.help-text {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.help-text ul {
+    padding-left: 20px;
+}
+
+/* Loading screen */
+#loading-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 9999;
+}
+
+/* Bayesian analysis specific styling */
+.mcmc-results .nav-tabs {
+    margin-bottom: 15px;
+}
+
+.posterior-plot, .trace-plot {
+    height: 400px;
+    margin-top: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .box {
+        margin-bottom: 10px;
+    }
+    
+    .form-control {
+        margin-bottom: 10px;
+    }
+}
