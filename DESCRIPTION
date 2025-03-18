@@ -1,0 +1,20 @@
+Package: AALMR
+Title: All-Ages Lead Model in R
+Version: 1.0.01
+Authors@R: 
+    person("Maria", "Cardelino", "maria.cardelino@emory.edu", role = c("aut", "cre"))
+
+Description: An R implementation of the All-Ages Lead Model (AALM), 
+    ported from the 2023 Fortran version. This model simulates the 
+    pharmacokinetics of lead in the human body across various age groups
+    and exposure scenarios.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends:
+    R (>= 3.5.0)
+Imports:
+    stats,
+    utils
